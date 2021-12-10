@@ -5,10 +5,11 @@ import java.util.Scanner;
 
 public class Partida {
 
-    ArrayList<Personagens> personagensCriados = new ArrayList<>(Arrays.asList(new Personagens("Silvio Santos", true, 100, "Dinheiro, Fama e Carisma"), new Personagens("Guerreiro", true, 100, "Força, Brutalidade e Magia"), new Personagens("Aluno Acadêmico", true, 100, "Inteligência, Sono e Força de Vontade"), new Personagens("Mago Implacável", true, 100, "Poder, Força e Resistência"), new Personagens("Estrategista", true, 100, "Inteligência, Conhecimento e Paciência")));
+    private int firstPlayer;
+    private ArrayList<Personagens> personagensCriados = new ArrayList<>(Arrays.asList(new Personagens("Silvio Santos", true, 100, "Dinheiro, Fama e Carisma"), new Personagens("Guerreiro", true, 100, "Força, Brutalidade e Magia"), new Personagens("Aluno Acadêmico", true, 100, "Inteligência, Sono e Força de Vontade"), new Personagens("Mago Implacável", true, 100, "Poder, Força e Resistência"), new Personagens("Estrategista", true, 100, "Inteligência, Conhecimento e Paciência")));
 
-    Pergunta criarPerguntas = new Pergunta();
-    Alternativa criarAlternativas = new Alternativa();
+    private Pergunta criarPerguntas = new Pergunta();
+    private Alternativa criarAlternativas = new Alternativa();
 
     public Partida() {
     }
@@ -71,7 +72,7 @@ public class Partida {
                     jogador.setPersonageEscolhido(2);
                     loopControl = false;
                     break;
-                case "mago implacável":
+                case "mago implacavel":
                     personagensCriados.get(3).setStatus(false);
                     jogador.setPersonageEscolhido(3);
                     loopControl = false;
@@ -95,8 +96,10 @@ public class Partida {
         Random generator = new Random();
         String userAnswer;
         Scanner readLine = new Scanner(System.in);
-        int perguntaEscolhida = generator.nextInt(3);
-        System.out.println(perguntaEscolhida);
+        Boolean loopControl = true;
+        int perguntaEscolhida = generator.nextInt(13);
+        int checkPlayer1Life = 100;
+        int checkPlayer2Life = 100;
 
         criarPerguntas.addPerguntas("Quando o Brasil foi descoberto? ");
         criarAlternativas.addAlternativa("1500");
@@ -127,10 +130,12 @@ public class Partida {
         criarPerguntas.addPerguntas("Quantos dias tem um ano bissexto?");
         criarAlternativas.addAlternativa("366");
         
+        System.out.println("Iremos utilizar seu apelido a partir de agora.");
         System.out.println("\nAgora iremos começar o jogo!");
         System.out.println("\nEscolhendo qual jogador começa...");
 
         if (generator.nextInt(1) == 1) {
+            firstPlayer = 1;
             System.out.println("\nO jogador " + jogador1.getApelido() + " irá começar primeiro!! \n");
             System.out.println("\nA pergunta é: " + criarPerguntas.getPergunta(perguntaEscolhida) + "\n");
             System.out.print("Digite sua resposta: ");
@@ -138,35 +143,78 @@ public class Partida {
             checarResposta(userAnswer, perguntaEscolhida, personagensCriados.get(jogador1.getPersonageEscolhido()));
 
         }else {
+            firstPlayer = 2;
             System.out.println("\nO jogador " + jogador2.getApelido() + " irá começar primeiro!!");
-            System.out.println("\nA pergunta é: " + criarPerguntas.getPergunta(generator.nextInt(3)) + "\n");
+            System.out.println("\nA pergunta é: " + criarPerguntas.getPergunta(perguntaEscolhida) + "\n");
             System.out.print("Digite sua resposta: ");
             userAnswer = readLine.nextLine();
             checarResposta(userAnswer, perguntaEscolhida, personagensCriados.get(jogador2.getPersonageEscolhido()));
-        
         }
 
-        do {
-            
-        } while (true);
-        
 
+        if (firstPlayer == 1) {
+    
+            while (loopControl) {
+                perguntaEscolhida = generator.nextInt(13);
+                System.out.println("\nAgora é a vez do jogador " + jogador1.getApelido());
+                System.out.println("A próxima pergunta é: " + criarPerguntas.getPergunta(perguntaEscolhida) + "\n");
+                System.out.print("Digite sua resposta: ");
+                userAnswer = readLine.nextLine();
+                checarResposta(userAnswer, perguntaEscolhida, personagensCriados.get(jogador1.getPersonageEscolhido()));
+    
+                System.out.println("\nAgora é a vez do jogador" + jogador2.getApelido());
+                System.out.println("A próxima pergunta é: " + criarPerguntas.getPergunta(perguntaEscolhida) + "\n");
+                System.out.print("Digite sua resposta: ");
+                userAnswer = readLine.nextLine();
+                checarResposta(userAnswer, perguntaEscolhida, personagensCriados.get(jogador2.getPersonageEscolhido()));
+
+                checkPlayer1Life = personagensCriados.get(jogador1.getPersonageEscolhido()).getVida();
+                checkPlayer2Life = personagensCriados.get(jogador2.getPersonageEscolhido()).getVida();
+                
+                if (checkPlayer1Life == 0 || checkPlayer2Life == 0) {
+                    loopControl = false;
+                }
+            }
+            
+        }else {
+
+            while (loopControl) {
+                perguntaEscolhida = generator.nextInt(13);
+                System.out.println("\nAgora é a vez do jogador" + jogador1.getApelido());
+                System.out.println("\nA próxima pergunta é: " + criarPerguntas.getPergunta(perguntaEscolhida) + "\n");
+                System.out.print("Digite sua resposta: ");
+                userAnswer = readLine.nextLine();
+                checarResposta(userAnswer, perguntaEscolhida, personagensCriados.get(jogador1.getPersonageEscolhido()));  
+    
+                System.out.println("\nAgora é a vez do jogador " + jogador2.getApelido());
+                System.out.println("\nA próxima pergunta é: " + criarPerguntas.getPergunta(perguntaEscolhida) + "\n");
+                System.out.print("Digite sua resposta: ");
+                userAnswer = readLine.nextLine();
+                checarResposta(userAnswer, perguntaEscolhida, personagensCriados.get(jogador2.getPersonageEscolhido()));
+                
+                checkPlayer1Life = personagensCriados.get(jogador1.getPersonageEscolhido()).getVida();
+                checkPlayer2Life = personagensCriados.get(jogador2.getPersonageEscolhido()).getVida();
+
+                if (checkPlayer1Life == 0 || checkPlayer2Life == 0) {
+                    loopControl = false;
+                }
+            }
+        } 
     }
 
     public void checarResposta(String resposta, int perguntaEscolhida, Personagens personagem) {
-        System.out.println(perguntaEscolhida);
-        criarAlternativas.getAlternativas();
-        if (resposta == criarAlternativas.getAlternativa(perguntaEscolhida)) {
+
+        if (resposta.equals(criarAlternativas.getAlternativa(perguntaEscolhida).toString())) {
+            System.out.println("\nParabéns! Você acertou!!\n");
             System.out.println("\nA resposta correta era " + criarAlternativas.getAlternativa(perguntaEscolhida) + "\n");
-            System.out.println("Parabéns! Você acertou!!");
         }else {
             int calcularVida;
-            System.out.println("\nA resposta correta era " + criarAlternativas.getAlternativa(perguntaEscolhida) + "\n");
             System.out.println("Que pena! Você errou.");  
+            System.out.println("\nA resposta correta era " + criarAlternativas.getAlternativa(perguntaEscolhida) + "\n");
             calcularVida = personagem.getVida() - 10;
             personagem.setVida(calcularVida); 
-            System.out.println("A vida do personagem " + personagem.getNome() + " agora é " + personagem.getVida());
-            
+            System.out.println("A vida do personagem " + personagem.getNome() + " agora é " + personagem.getVida());   
         }
     }
 }
+
