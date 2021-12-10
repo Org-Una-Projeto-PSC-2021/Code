@@ -106,7 +106,27 @@ public class Partida {
         criarAlternativas.addAlternativa("Moscou");
         criarPerguntas.addPerguntas("Qual o símbolo do chumbo na tabela periódica?");
         criarAlternativas.addAlternativa("Pb");
-
+        criarPerguntas.addPerguntas("Em qual região fica localizado o Espírito Santo?");
+        criarAlternativas.addAlternativa("Sudeste");
+        criarPerguntas.addPerguntas("As margens de qual rio Pedro 1º proclamou a independência do Brasil?");
+        criarAlternativas.addAlternativa("Rio Ipiranga");
+        criarPerguntas.addPerguntas("Qual a obra mais famosa de Van Gogh?");
+        criarAlternativas.addAlternativa("O comedor de batatas");
+        criarPerguntas.addPerguntas("Em que ano o Michael Jackson morreu?");
+        criarAlternativas.addAlternativa("2009");
+        criarPerguntas.addPerguntas("Qual é a décima sexta letra do alfabeto?");
+        criarAlternativas.addAlternativa("P");
+        criarPerguntas.addPerguntas("Qual é o nome do macho da cabra?");
+        criarAlternativas.addAlternativa("Bode");
+        criarPerguntas.addPerguntas("Você tem 36 laranjas e joga um terço fora, com quantas você fica?");
+        criarAlternativas.addAlternativa("24");
+        criarPerguntas.addPerguntas("Em qual país fica Machu Picchu?");
+        criarAlternativas.addAlternativa("Peru");
+        criarPerguntas.addPerguntas("Qual é o nome do maior osso do corpo humano?");
+        criarAlternativas.addAlternativa("Fêmur");
+        criarPerguntas.addPerguntas("Quantos dias tem um ano bissexto?");
+        criarAlternativas.addAlternativa("366");
+        
         System.out.println("\nAgora iremos começar o jogo!");
         System.out.println("\nEscolhendo qual jogador começa...");
 
