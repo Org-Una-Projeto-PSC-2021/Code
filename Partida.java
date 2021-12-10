@@ -1,13 +1,14 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Partida {
-    
-    Personagens silvio = new Personagens("Silvio Santos", true, 100, "Dinheiro, Fama e Carisma");
-    Personagens guerreiro = new Personagens("Guerreiro", true, 100, "Força, Brutalidade e Magia");
-    Personagens aluno = new Personagens("Aluno Acadêmico", true, 100, "Inteligência, Sono e Força de Vontade");
-    Personagens mago = new Personagens("Mago Implacável", true, 100, "Poder, Força e Resistência");
-    Personagens estrategista = new Personagens("Mestre Estratégico", true, 100, "Inteligência, Conhecimento e Paciência");
+
+    ArrayList<Personagens> personagensCriados = new ArrayList<>(Arrays.asList(new Personagens("Silvio Santos", true, 100, "Dinheiro, Fama e Carisma"), new Personagens("Guerreiro", true, 100, "Força, Brutalidade e Magia"), new Personagens("Aluno Acadêmico", true, 100, "Inteligência, Sono e Força de Vontade"), new Personagens("Mago Implacável", true, 100, "Poder, Força e Resistência"), new Personagens("Estrategista", true, 100, "Inteligência, Conhecimento e Paciência")));
+
+    Pergunta criarPerguntas = new Pergunta();
+    Alternativa criarAlternativas = new Alternativa();
 
     public Partida() {
     }
@@ -43,20 +44,10 @@ public class Partida {
         boolean loopControl = true;
         System.out.println("\nHora de escolher os personagens, os personagens disponíveis são:\n");
 
-        if (silvio.getStatus() == true) {
-            System.out.println("Personagem: " + silvio.getNome() + ", Habilidades: " + silvio.getHabilidades());
-        }
-        if (guerreiro.getStatus() == true) {
-            System.out.println("Personagem: " + guerreiro.getNome() + ", Habilidades: " + guerreiro.getHabilidades());
-        }
-        if (aluno.getStatus() == true) {
-            System.out.println("Personagem: " + aluno.getNome() + ", Habilidades: " + aluno.getHabilidades());
-        }
-        if (mago.getStatus() == true) {
-            System.out.println("Personagem: " + mago.getNome() + ", Habilidades: " + mago.getHabilidades());
-        }
-        if (estrategista.getStatus() == true) {
-            System.out.println("Personagem: " + estrategista.getNome() + ", Habilidades: " + estrategista.getHabilidades());
+        for (int i = 0; i < personagensCriados.size(); i++) {
+            if(personagensCriados.get(i).getStatus() == true) {
+                System.out.println("Personagem: " + personagensCriados.get(i).getNome() + ", Habilidades: " + personagensCriados.get(i).getHabilidades());
+            }
         }
 
         System.out.print("\nDigite o nome do personagem para escolher: ");
@@ -66,29 +57,28 @@ public class Partida {
 
             switch (userInput) {
                 case "silvio santos":
-                    silvio.setStatus(false);
-                    System.out.println(silvio.getStatus());
-                    jogador.setPersonageEscolhido(userInput);
+                    personagensCriados.get(0).setStatus(false);
+                    jogador.setPersonageEscolhido(0);
                     loopControl = false;
                     break;
                 case "guerreiro":
-                    guerreiro.setStatus(false);
-                    jogador.setPersonageEscolhido(userInput);
+                    personagensCriados.get(1).setStatus(false);
+                    jogador.setPersonageEscolhido(1);
                     loopControl = false;
                     break;
                 case "aluno academico":
-                    aluno.setStatus(false);
-                    jogador.setPersonageEscolhido(userInput);
+                    personagensCriados.get(2).setStatus(false);
+                    jogador.setPersonageEscolhido(2);
                     loopControl = false;
                     break;
-                case "mago":
-                    mago.setStatus(false);
-                    jogador.setPersonageEscolhido(userInput);
+                case "mago implacável":
+                    personagensCriados.get(3).setStatus(false);
+                    jogador.setPersonageEscolhido(3);
                     loopControl = false;
                     break;
                 case "estrategista":
-                    estrategista.setStatus(false);
-                    jogador.setPersonageEscolhido(userInput);
+                    personagensCriados.get(4).setStatus(false);
+                    jogador.setPersonageEscolhido(4);
                     loopControl = false;
                     break;
                 default:
@@ -101,10 +91,60 @@ public class Partida {
     }
 
     public void iniciarPartida(Jogador jogador1, Jogador jogador2) {
+
+        Random generator = new Random();
+        String userAnswer;
+        Scanner readLine = new Scanner(System.in);
+        int perguntaEscolhida = generator.nextInt(3);
+
+        criarPerguntas.addPerguntas("Quando o Brasil foi descoberto? ");
+        criarAlternativas.addAlternativa("1500");
+        criarPerguntas.addPerguntas("Qual a obra de arte mais famosa do mundo? ");
+        criarAlternativas.addAlternativa("Monalisa");
+        criarPerguntas.addPerguntas("Qual a capital da Rússia?");
+        criarAlternativas.addAlternativa("Moscou");
+        criarPerguntas.addPerguntas("Qual o símbolo do chumbo na tabela periódica?");
+        criarAlternativas.addAlternativa("Pb");
+
+        System.out.println("\nAgora iremos começar o jogo!");
+        System.out.println("\nEscolhendo qual jogador começa...");
+
+        if (generator.nextInt(1) == 1) {
+            System.out.println("\nO jogador " + jogador1.getApelido() + " irá começar primeiro!! \n");
+            System.out.println("\nA pergunta é: " + criarPerguntas.getPergunta(perguntaEscolhida) + "\n");
+            System.out.print("Digite sua resposta: ");
+            userAnswer = readLine.nextLine();
+            checarResposta(userAnswer, perguntaEscolhida, personagensCriados.get(jogador1.getPersonageEscolhido()));
+
+            
+
+        }else {
+            System.out.println("\nO jogador " + jogador2.getApelido() + " irá começar primeiro!!");
+            System.out.println("\nA pergunta é: " + criarPerguntas.getPergunta(generator.nextInt(3)) + "\n");
+            System.out.print("Digite sua resposta: ");
+            userAnswer = readLine.nextLine();
+            checarResposta(userAnswer, perguntaEscolhida, personagensCriados.get(jogador2.getPersonageEscolhido()));
+        
+        }
+
+        do {
+            
+        } while (true);
+        
+
     }
 
-    public void exibirPergunta() {
-
+    public void checarResposta(String resposta, int perguntaEscolhida, Personagens personagem) {
+        if (resposta == criarAlternativas.getAlternativa(perguntaEscolhida)) {
+            System.out.println("\nA resposta correta era " + criarAlternativas.getAlternativa(perguntaEscolhida) + "\n");
+            System.out.println("Parabéns! Você acertou!!");
+        }else {
+            int calcularVida;
+            System.out.println("\nA resposta correta era " + criarAlternativas.getAlternativa(perguntaEscolhida) + "\n");
+            System.out.println("Que pena! Você errou.");  
+            calcularVida = personagem.getVida() - 10;
+            personagem.setVida(calcularVida); 
+        }
     }
 
 }

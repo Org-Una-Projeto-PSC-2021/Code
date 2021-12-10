@@ -1,8 +1,6 @@
 public class App {
     public static void main(String[] args) {
 
-
-
         MenuInicial menu = new MenuInicial();
 
         if (menu.mostrarMenu().equals("1")) {
@@ -18,21 +16,9 @@ public class App {
             novaPartida.escolherPersonagem(jogador2);
 
             novaPartida.iniciarPartida(jogador1, jogador2);
-
-
-
+               
         } else {
             System.out.println("Finalizando o programa...");
         }
-
-
-
-
-
-    }
-
-
-    public static void cadastrarJogador() {
-        System.out.println("hi");
     }
 }

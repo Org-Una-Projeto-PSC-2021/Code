@@ -3,7 +3,7 @@ public class Jogador {
     private String apelido;
     private String email;
     private String telefone; 
-    private String personagemEscolhido;
+    private int personagemEscolhido;
 
     public Jogador(String nome, String apelido, String email, String telefone) {
         this.nome = nome;
@@ -42,11 +42,11 @@ public class Jogador {
         this.telefone = telefone;
     }
     
-    public String getPersonageEscolhido() {
+    public int getPersonageEscolhido() {
         return this.personagemEscolhido;
     }
 
-    public void setPersonageEscolhido(String personagemEscolhido) {
+    public void setPersonageEscolhido(Integer personagemEscolhido) {
         this.personagemEscolhido = personagemEscolhido;
     }
 
