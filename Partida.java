@@ -162,7 +162,7 @@ public class Partida {
                 userAnswer = readLine.nextLine();
                 checarResposta(userAnswer, perguntaEscolhida, personagensCriados.get(jogador1.getPersonageEscolhido()));
     
-                System.out.println("\nAgora é a vez do jogador" + jogador2.getApelido());
+                System.out.println("\nAgora é a vez do jogador " + jogador2.getApelido());
                 System.out.println("A próxima pergunta é: " + criarPerguntas.getPergunta(perguntaEscolhida) + "\n");
                 System.out.print("Digite sua resposta: ");
                 userAnswer = readLine.nextLine();
@@ -180,7 +180,7 @@ public class Partida {
 
             while (loopControl) {
                 perguntaEscolhida = generator.nextInt(13);
-                System.out.println("\nAgora é a vez do jogador" + jogador1.getApelido());
+                System.out.println("\nAgora é a vez do jogador " + jogador1.getApelido());
                 System.out.println("\nA próxima pergunta é: " + criarPerguntas.getPergunta(perguntaEscolhida) + "\n");
                 System.out.print("Digite sua resposta: ");
                 userAnswer = readLine.nextLine();
@@ -200,6 +200,12 @@ public class Partida {
                 }
             }
         } 
+
+        if (checkPlayer1Life > 0 && checkPlayer2Life <= 0) {
+            System.out.println("\nParabens!! O jogador " + jogador1.getApelido() + " ganhou a partida!!\n");
+        }else {
+            System.out.println("\nParabens!! O jogador " + jogador2.getApelido() + " ganhou a partida!!\n");
+        }
     }
 
     public void checarResposta(String resposta, int perguntaEscolhida, Personagens personagem) {
