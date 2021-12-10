@@ -96,6 +96,7 @@ public class Partida {
         String userAnswer;
         Scanner readLine = new Scanner(System.in);
         int perguntaEscolhida = generator.nextInt(3);
+        System.out.println(perguntaEscolhida);
 
         criarPerguntas.addPerguntas("Quando o Brasil foi descoberto? ");
         criarAlternativas.addAlternativa("1500");
@@ -116,8 +117,6 @@ public class Partida {
             userAnswer = readLine.nextLine();
             checarResposta(userAnswer, perguntaEscolhida, personagensCriados.get(jogador1.getPersonageEscolhido()));
 
-            
-
         }else {
             System.out.println("\nO jogador " + jogador2.getApelido() + " irá começar primeiro!!");
             System.out.println("\nA pergunta é: " + criarPerguntas.getPergunta(generator.nextInt(3)) + "\n");
@@ -135,6 +134,8 @@ public class Partida {
     }
 
     public void checarResposta(String resposta, int perguntaEscolhida, Personagens personagem) {
+        System.out.println(perguntaEscolhida);
+        criarAlternativas.getAlternativas();
         if (resposta == criarAlternativas.getAlternativa(perguntaEscolhida)) {
             System.out.println("\nA resposta correta era " + criarAlternativas.getAlternativa(perguntaEscolhida) + "\n");
             System.out.println("Parabéns! Você acertou!!");
@@ -144,7 +145,8 @@ public class Partida {
             System.out.println("Que pena! Você errou.");  
             calcularVida = personagem.getVida() - 10;
             personagem.setVida(calcularVida); 
+            System.out.println("A vida do personagem " + personagem.getNome() + " agora é " + personagem.getVida());
+            
         }
     }
-
 }
